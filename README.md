@@ -32,6 +32,13 @@ The Counter Page is responsible for providing the CounterCubit instance to the C
 
 To provide the Cubit to the UI, use the BlocProvider widget. It ensures that the Cubit instance is available to its child widgets and manages its lifecycle.
 
+### Key Points:
+
+- Cubit Provisioning: BlocProvider makes the CounterCubit instance available to its child widgets, including CounterView and BlocListener.
+- State Management: CounterPage initializes the CounterCubit with an initial state and manages its lifecycle.
+- Side Effects Handling: BlocListener listens for specific state changes and handles side effects, such as displaying dialogs.
+- UI Separation: By using BlocProvider and BlocListener, CounterPage separates the state management and business logic from the UI presentation handled by CounterView.
+
 ```
 // COUNTER PAGE is responsibile for providing CounterCubit to CounterView (UI)
 // - use BlocProvider 
@@ -56,6 +63,73 @@ class CounterPage extends StatelessWidget {
           }
         },
         child: const CounterView(), // Provide the UI to display and interact with CounterCubit
+      ),
+    );
+  }
+}
+```
+
+## Counter View
+The CounterView focuses solely on the user interface, displaying the current counter value and providing buttons to increment or decrement that value.
+
+### How It Works:
+
+- ### BlocBuilder: 
+This widget listens for state changes in the CounterCubit and rebuilds the UI accordingly. It takes two parameters:
+
+- ### Builder Function: 
+This function receives the current CounterCubit state and is responsible for building the widget tree. In this case, it displays the counter value as text.
+State: The current value of the counter, which is an integer in this example.
+
+### Key Points:
+
+- The CounterView does not manage state itself; instead, it relies on CounterCubit for state management.
+- It uses BlocBuilder to react to state changes and update the UI without directly managing the state.
+- By separating the UI from business logic, CounterView maintains a clear focus on presentation, while CounterCubit handles the underlying logic.
+
+```
+// COUNTER VIEW: Responsible for the UI
+// - Uses BlocBuilder to rebuild the UI based on the state
+
+class CounterView extends StatelessWidget {
+  const CounterView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Counter using Cubit (BLoC)',
+          style: TextStyle(fontSize: 16),
+        ),
+      ),
+      body: BlocBuilder<CounterCubit, int>(
+        builder: (context, state) {
+          return Center(
+            child: Text(
+              state.toString(), // Display the current counter value
+              style: const TextStyle(fontSize: 30),
+            ),
+          );
+        },
+      ),
+      // Floating action buttons for incrementing and decrementing the counter
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          // Increment button
+          FloatingActionButton(
+            onPressed: () => context.read<CounterCubit>().increment(),
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(height: 20),
+
+          // Decrement button
+          FloatingActionButton(
+            onPressed: () => context.read<CounterCubit>().decrement(),
+            child: const Icon(Icons.remove),
+          ),
+        ],
       ),
     );
   }
