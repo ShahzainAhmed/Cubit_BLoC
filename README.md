@@ -31,10 +31,10 @@ Cubit was introduced as a simplified alternative to BLoC. It reduces boilerplate
 
 ### When to Use Which:
 
-### Cubit: 
+- ### Cubit: 
 Best for simpler state management needs with minimal state transitions and events. Ideal for applications or components where the state logic is straightforward.
 
-### BLoC: 
+- ### BLoC: 
 Better suited for more complex state management scenarios involving intricate state transitions, multiple events, and a more structured approach.
 
 ### Summary: 
