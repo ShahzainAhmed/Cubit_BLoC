@@ -2,7 +2,7 @@
 
 ## Bloc and Cubit Overview
 ### Basic Idea: 
-To maintain a clean architecture in Flutter applications, it's essential to separate business logic from UI components. The BLoC (Business Logic Component) pattern facilitates this separation, and Cubit is a simplified version of BLoC for easier state managemen
+To maintain a clean architecture in Flutter applications, it's essential to separate business logic from UI components. The BLoC (Business Logic Component) pattern facilitates this separation, and Cubit is a simplified version of BLoC for easier state management.
 
 ## Why Use Cubit Instead of BLoC?
 - ### Context:
